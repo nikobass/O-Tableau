@@ -8,10 +8,14 @@
     <div class="convo_head">
         <h1>Messages</h1>
     </div>
+    
     <div class="convo_list">
         <a class="convo_add" href="{{ path('conversation_new')}} "><i class="fas fa-plus-circle"></i></a>
-    
+    <div id="conversation">
+
+    </div>
         {% for conv in conv %}
+        
             {% if conv.userParticipate == app.user %}
                 <a href="{{ path('conversation_show', {'id': conv.id })}}">
                     <div>
@@ -35,5 +39,24 @@
 {% endblock %}
 
 {% block footer %}
+
+{% endblock %}
+
+{% block javascripts %}
+
+        <script>
+        const url = new URL('http://localhost:3000/hub');
+        url.searchParams.append('topic', 'http://monsite.com/ping');
+        const eventSource = new EventSource(url);
+        // The callback will be called every time an update is published
+        //eventSource.onmessage = e => console.log(e);
+        eventSource.onmessage = e => {
+        console.log(e);
+        const div =document.getElementById('conversation');
+        const message = document.createElement('p');
+        div.appendChild(message);
+        message.innerText = e.data
+        } // do something with the payload
+        </script>
 
 {% endblock %}
