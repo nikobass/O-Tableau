@@ -62,7 +62,7 @@ class CanteenController extends AbstractController
    // Récupération de la liste des élèves
 
    $students = $my_classroom->getStudents();
-   $forms = [];
+   //$forms = [];
 
    foreach ($students as $key => $student) {
      //$student->getLunches()
@@ -74,10 +74,10 @@ class CanteenController extends AbstractController
      //dump($student->getId());
      if (empty($presenceLunches)){
       $presenceLunch = new PresenceLunch();
-      $form = $this->createForm(PresenceLunchType::class, $presenceLunch);
+      $form = $this->createForm(PresenceLunchType::class, $presenceLunch, array('students'=>$students));
       $form->handleRequest($request);
       
-      $forms[$student->getId()] = $form->createView();
+      //$forms[$student->getId()] = $form->createView();
 
         if ($form->isSubmitted() && $form->isValid()) {
           $presenceLunch->setCalendar($thisCalendar);
@@ -105,7 +105,7 @@ class CanteenController extends AbstractController
      'students' => $students,
      'student'=>$student,
      'my_classroom' => $my_classroom,
-     'forms'=> $forms,
+     //'forms'=> $forms,
      'form' => $form->createView(),
 
  ]);
