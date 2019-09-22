@@ -9,11 +9,11 @@ var app = {
         $listLabel.addClass('black')
         // j'attribu un event et je le passe à app.handleLabelClick
         $listLabel.on('click', app.handleLabelClick);
-
+        
         // focus l'input d'envoie de message
         var $inputMsg = $('#message_content')
         $inputMsg.focus()
-
+        // console.log($inputMsg)
 
         // // Attempt to update the user's cache.
         // window.applicationCache.update();
@@ -45,6 +45,11 @@ var app = {
             
         }
     },
+
+    loadMessage:function(){
+        
+
+    }
 
     
 

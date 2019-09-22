@@ -39,3 +39,78 @@
 {% endblock %}
 
 
+
+<script>
+
+
+
+const url = new URL('http://92.243.10.85:3000/hub');
+
+
+url.searchParams.append('topic', 'http://monsite.com/ping/'+{{ name }});
+
+
+
+
+
+const eventSource = new EventSource(url);
+
+
+eventSource.onmessage = e => {
+  
+  console.log(e)
+   
+  const div =document.getElementById('conversation');
+    
+  const bubble = document.createElement('div');
+  const message = document.createElement('p');
+  const name = document.createElement('h3');
+  const time = document.createElement('h6');
+  newData = JSON.parse(e.data);
+   console.log(newData.time);
+    console.log(newData.name);
+    console.log(newData.message);
+     console.log(newData.remove);
+  
+  
+ if(newData.message!=undefined && newData.name!=undefined){
+    $('#pre-send').find('#'+newData.name+'').remove()
+      bubble.appendChild(name);
+      bubble.appendChild(message);
+      bubble.appendChild(time);
+      div.appendChild(bubble);
+      name.innerText= newData.name;
+      message.innerText=newData.message;
+      time.innerText=newData.hour
+    }else{
+
+       if(newData.remove!=undefined && newData.name!=undefined && newData.message==undefined)
+       {
+         $('#pre-send').find('#'+newData.name+'').remove()
+       }else{
+  
+        if(newData.name!=undefined && newData.message==undefined)
+        {
+
+          const pre_send= document.createElement('p');
+          pre_send.setAttribute('id',newData.name);
+          pre_send.innerHTML=newData.name+'&nbsp;'+'est en train d\'écrire un message'+'<p class="saving"><span>.</span><span>.</span><span>.</span></p>'
+          $('#pre-send').append(pre_send)
+          
+        }
+       
+       }
+    }
+
+   
+
+    
+   
+  
+    
+  
+  
+ 
+  
+} 
+</script>

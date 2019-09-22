@@ -9,6 +9,8 @@ use App\Entity\Conversation;
 use App\Entity\MessageStatus;
 use App\Form\ConversationType;
 use App\Repository\UserRepository;
+use Symfony\Component\Mercure\Update;
+use Symfony\Component\Mercure\Publisher;
 use App\Repository\ClassroomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ConversationRepository;
@@ -156,7 +158,7 @@ class ConversationController extends AbstractController
     /**
      * @Route("/{id}", name="show", methods={"GET","POST"}), requirements={"id"="\d+"})
      */
-    public function show(Conversation $conversation, Request $request)
+    public function show(Publisher $publisher ,Conversation $conversation, Request $request)
     {
         //$conversation->setNewMessage(false);
         
@@ -164,23 +166,44 @@ class ConversationController extends AbstractController
         $form = $this->createForm(MessageType::class, $message);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        // if ($form->isSubmitted() && $form->isValid()) {
 
+            $currentMessage =  $request->request->get('message');
+            if($currentMessage!=null){
+                
+            }
             $user = $this->getUser();
+            $message->setContent();
             $message->setUserPost($user);
             $message->addConversation($conversation);
-            $entityManager = $this->getDoctrine()->getManager();
-            
+            $entityManager = $this->getDoctrine()->getManager();            
             $entityManager->persist($message);
             $entityManager->flush();
+            
+            $users = [];
+            $Users [] = $conversation->getUserConsult();
+            $Users [] = $conversation->getUserParticipate();
+            foreach ($users as $key => $user) {
+                $data=json_encode(
 
+                    [  
+                    
+                        "message"=>$message->getContent()
+                        
+                    ]);
+                
+    
+                $update1 = new Update('http://monsite.com/ping/'.$user , $data);   
+                $id2 = $publisher($update1);
+            }
+            
             $this->addFlash(
                 'success',
                 'Enregistrement effectué'
             );
             
             return $this->redirectToRoute('conversation_show', ['id'=> $conversation->getId()]);
-        }
+        // }
         
         $okToShow = [];
         $messages = $conversation->getMessages();
