@@ -63,7 +63,7 @@
 
     <script>
 
-        const url = new URL('http://localhost:3000/hub');
+        const url = new URL('http://92.243.9.5:3000/hub');
 
         url.searchParams.append('topic', 'http://monsite.com/ping/'+{{ id }});
 
@@ -72,7 +72,7 @@
         eventSource.onmessage = e => {
             
             newData = JSON.parse(e.data);
-                
+console.log(e);                
             const div = document.getElementById('message_list');
             const bubble = document.createElement('div');
             bubble.className = 'message';

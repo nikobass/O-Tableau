@@ -1,5 +1,5 @@
 var app = {
-    baseUrl: 'http://localhost/Projet-Apo/O-Tableau/public/conversation/',
+    baseUrl: 'http://92.243.9.5/conversation/',
     init: function() {
         console.log('init');
         
@@ -324,10 +324,11 @@ var app = {
         evt.preventDefault()
         
         inputMessage = $('#field-message').val();
-        
+
          var id = $('#conversation-id').val()
         //  console.log(id)
-        // console.log(inputMessage)
+          console.log(inputMessage);
+console.log(app.baseUrl+id);
         var jqXHR = $.ajax({
             url: app.baseUrl+id ,
             method: 'POST',

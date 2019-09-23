@@ -172,7 +172,7 @@ class ConversationController extends AbstractController
            
             $user = $this->getUser();
             $id = $user->getId();
-            // dump($currentMessage);
+            dump($currentMessage);
             if($currentMessage!=null){
 
                 $message->setContent($currentMessage); 
@@ -181,23 +181,25 @@ class ConversationController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();            
                 $entityManager->persist($message);
                 $entityManager->flush();
-$users = [];
-            $Users [] = $conversation->getUserConsult();
-            $Users [] = $conversation->getUserParticipate();
-
-                $data=json_encode(
-
-                    [  
-                    
-                        "message"=>$message->getContent()
-                        
-                    ]);
-
+                $users = [];
+                $users [] = $conversation->getUserConsult();
+                $users [] = $conversation->getUserParticipate();
+                              
+               
+                       
+                    $data=json_encode(
     
+                        [  
+                        
+                            "message"=>$message->getContent()
+                            
+                        ]);
+                    
+                            
+                    $update1 = new Update('http://monsite.com/ping/'.$id , $data);   
+                    $id2 = $publisher($update1);
                 
-
-            $update1 = new Update('http://monsite.com/ping/'.$id , $data);   
-            $id2 = $publisher($update1);
+                
                 // dump($currentMessage);
                 // die;
                 // return $this->redirectToRoute('conversation_show', ['id'=> $conversation->getId()]);
