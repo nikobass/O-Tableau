@@ -1,5 +1,5 @@
 var app = {
-    baseUrl: 'http://localhost/Projet-Apo/O-Tableau/public/conversation/',
+    baseUrl: 'http://otableau.school/conversation/',
     init: function() {
         console.log('init');
         
