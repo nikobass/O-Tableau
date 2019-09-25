@@ -175,7 +175,6 @@ class ConversationController extends AbstractController
            
            //dump($currentMessage);die;
            if($currentMessage!=null){
-
                $message->setContent($currentMessage); 
                $message->setUserPost($user);
                $message->addConversation($conversation);
@@ -192,23 +191,22 @@ class ConversationController extends AbstractController
    
                        [  
                        
-                           "message"=>$message->getContent()
+				"message"=>$message->getContent()
                            
                        ]);
                    
                            
                    $update1 = new Update('http://monsite.com/ping/'.$id , $data);   
                    $id2 = $publisher($update1);
-               
-                   
+                                  
                // dump($currentMessage);
                // die;
                // return $this->redirectToRoute('conversation_show', ['id'=> $conversation->getId()]);
            } 
                                
-            $lastMessage = $messageRepository->findLast();
-            $postId = $lastMessage->getUserPost()->getId();
-           
+//            $lastMessage = $messageRepository->findLast();
+//            $postId = $lastMessage->getUserPost()->getId();
+//dump($postId);die();           
            
         
            
@@ -252,7 +250,7 @@ class ConversationController extends AbstractController
             'formMessage' => $form->createView(),
             'id' => $id,
             'idUser'=> $idUser,
-            'postId'=>$postId,
+            
         ]);
        
     }

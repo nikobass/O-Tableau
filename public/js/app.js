@@ -327,7 +327,7 @@ var app = {
         evt.preventDefault()
         
         inputMessage = $('#field-message').val();
-        
+userPost = $('#user-id').val(); // ************************************************************************************************************        
         var id = $('#conversation-id').val()
         // console.log(id)
         // console.log(inputMessage)
@@ -338,7 +338,7 @@ var app = {
             data:{
             
             "message": inputMessage,
-        
+        "userPost": userPost, // ********************************************************************************************************************
     
             }
     
