@@ -1,5 +1,6 @@
 # O-Tableau
 Projet de fin de formation O'clock
+Site de communication/gestion entre les parents et les enseignants d'une école.
 
 Lien direct vers la présentation de ce projet (timer : 28'12") : https://youtu.be/YZgrCFXXboI?t=1691
 
